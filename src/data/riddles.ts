@@ -7,7 +7,7 @@ export interface Riddle {
 export const riddles: Riddle[] = [
   // Aman's Riddles
   { id: 1, text: "That momo guy who doesn’t look like a momo.", answer: "seek" },
-  { id: 2, text: "The abandoned.", answer: "the" },
+  { id: 2, text: "The abandoned Gate.", answer: "the" },
   { id: 3, text: "I quench your thirst when you’re dying of thirst.", answer: "secrets" },
   { id: 4, text: "Horse resting zone for your two-wheeled friend.", answer: "within" },
   { id: 5, text: "The bed that’s been abandoned for so long.", answer: "our" },
@@ -32,9 +32,9 @@ export const riddles: Riddle[] = [
   // Roshan's Riddles
   { id: 17, text: "Ciggi-catching spot for keen eyes.", answer: "shiva" },
   { id: 18, text: "The shade of the mango tree.", answer: "spirits" },
-  { id: 19, text: "The sweet tooth.", answer: "guide" },
+  { id: 19, text: "The one with the mysterious number 600103.00.", answer: "guide" },
   { id: 20, text: "The senior who terrifies everyone the most.", answer: "you" },
-  { id: 21, text: "The one with the mysterious number 600103.00.", answer: "to" },
+  { id: 21, text: "The sweet tooth.", answer: "to" },
 
   // Salman's Riddles
   { id: 22, text: "The one who’s never touched any nasha.", answer: "the" },
