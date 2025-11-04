@@ -7,7 +7,7 @@ export interface Riddle {
 export const riddles: Riddle[] = [
   // Aman's Riddles
   { id: 1, text: "That momo guy who doesn’t look like a momo.", answer: "seek" },
-  { id: 2, text: "The abandoned.", answer: "the" },
+  { id: 2, text: "The abandoned gate.", answer: "the" },
   { id: 3, text: "I quench your thirst when you’re dying of thirst.", answer: "secrets" },
   { id: 4, text: "Horse resting zone for your two-wheeled friend.", answer: "within" },
   { id: 5, text: "The bed that’s been abandoned for so long.", answer: "our" },
