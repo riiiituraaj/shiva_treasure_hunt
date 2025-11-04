@@ -16,18 +16,45 @@ const Admin = () => {
     if (!user || user.username !== "admin") {
       navigate("/");
     }
-    setAllUsers(users.filter(u => u.username !== 'admin'));
-  }, [navigate]);
 
-  const handleResetProgress = (userId: string) => {
-    const updatedUsers = allUsers.map(user => {
-      if (user.id === userId) {
-        return { ...user, solvedRiddles: 0, collectedWords: [] };
+    // Get base users but exclude admin
+    const baseUsers = users.filter(u => u.username !== 'admin');
+    
+    // Merge with stored progress
+    const usersWithProgress = baseUsers.map(user => {
+      const progress = localStorage.getItem(`shiva_hunt_${user.username}`);
+      if (progress) {
+        const { completedRiddles } = JSON.parse(progress);
+        return {
+          ...user,
+          solvedRiddles: completedRiddles.length,
+          collectedWords: completedRiddles.map(riddleId => {
+            const riddle = user.riddles[riddleId - 1];
+            return riddle ? user.finalSentence.split(' ')[riddleId - 1] : '';
+          }).filter(Boolean)
+        };
       }
       return user;
     });
-    setAllUsers(updatedUsers);
-    // Note: In a real app, you'd persist this change to your backend/storage.
+    
+    setAllUsers(usersWithProgress);
+  }, [navigate]);
+
+  const handleResetProgress = (userId: string) => {
+    const targetUser = users.find(u => u.id === userId);
+    if (targetUser) {
+      // Clear localStorage for this user
+      localStorage.removeItem(`shiva_hunt_${targetUser.username}`);
+      
+      // Update state
+      const updatedUsers = allUsers.map(user => {
+        if (user.id === userId) {
+          return { ...user, solvedRiddles: 0, collectedWords: [] };
+        }
+        return user;
+      });
+      setAllUsers(updatedUsers);
+    }
   };
 
   const handleLogout = () => {
@@ -44,10 +71,24 @@ const Admin = () => {
           className="flex justify-between items-center mb-8"
         >
           <h1 className="font-typewriter text-4xl text-foreground">Admin Dashboard</h1>
-          <Button onClick={handleLogout} variant="outline" className="font-typewriter border-2 border-secondary">
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
+          <div className="flex gap-4">
+            <Button 
+              onClick={() => window.location.reload()} 
+              variant="outline" 
+              className="font-typewriter border-2 border-secondary"
+            >
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Refresh
+            </Button>
+            <Button 
+              onClick={handleLogout} 
+              variant="outline" 
+              className="font-typewriter border-2 border-secondary"
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout
+            </Button>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
